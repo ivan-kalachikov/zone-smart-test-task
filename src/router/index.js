@@ -1,24 +1,27 @@
-import { createRouter, createWebHashHistory } from "vue-router"
-import HomeView from "../views/HomeView.vue"
+import { createRouter, createWebHistory } from "vue-router"
+import LoginPage from "@/views/LoginPage.vue"
 
-const routes = {
-    home: {
+const routes = [
+    {
         path: "/",
-        name: "home",
-        component: HomeView,
+        name: "login",
+        component: LoginPage,
     },
-    about: {
-        path: "/about",
-        name: "about",
-        component: () =>
-            import(/* webpackChunkName: "about" */ "../views/AboutView.vue"),
+    {
+        path: "/products",
+        name: "products",
+        component: () => import("@/views/ProductsPage.vue"),
     },
-}
+]
 
 const router = createRouter({
-    history: createWebHashHistory(),
-    routes: Object.values(routes),
+    history: createWebHistory(),
+    mode: "history",
+    routes,
 })
 
 export default router
-export { routes }
+const routesNames = routes.reduce((acc, route) => {
+    return { ...acc, [route.name]: route.name }
+}, {})
+export { routesNames }

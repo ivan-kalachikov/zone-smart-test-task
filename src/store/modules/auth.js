@@ -17,8 +17,7 @@ export default {
     },
     actions: {
         async login({ commit }, credentials) {
-            const response = await auth(credentials)
-            const { access, refresh } = response.data
+            const { access, refresh } = await auth(credentials)
             commit("SET_TOKEN", access)
             commit("SET_REFRESH_TOKEN", refresh)
         },
@@ -28,8 +27,7 @@ export default {
                 await dispatch("logout")
                 return
             }
-            const response = await refreshApi(refreshToken)
-            const { access, refresh } = response.data
+            const { access, refresh } = await refreshApi(refreshToken)
             commit("SET_TOKEN", access)
             commit("SET_REFRESH_TOKEN", refresh)
         },

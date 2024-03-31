@@ -1,0 +1,9 @@
+:root {
+    --primary-color: #000;
+    --secondary-color: #999;
+    --accent-color: #2ed2ba;
+    --accent-color-hover: #2ed2ba;
+    --warn-color: #ff1e1e;
+    --hover-color: #132639;
+    --background-color: #f2f1f3;
+}

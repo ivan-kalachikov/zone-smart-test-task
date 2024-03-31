@@ -1,7 +1,7 @@
 import client from "./client"
 import { handleError } from "@/utils/errors"
 
-export async function auth(email, password) {
+export async function auth({ email, password }) {
     try {
         const response = await client.post("/user/jwt/create/", {
             email,
@@ -9,7 +9,7 @@ export async function auth(email, password) {
         })
         return response?.data || {}
     } catch (error) {
-        handleError(error)
+        handleError(error, true)
     }
 }
 
@@ -18,8 +18,7 @@ export async function refresh(refreshToken) {
         const response = await client.post("/user/jwt/refresh/", {
             refresh: refreshToken,
         })
-        const { access, refresh } = response.data
-        return { access, refresh }
+        return response?.data || {}
     } catch (error) {
         handleError(error)
     }

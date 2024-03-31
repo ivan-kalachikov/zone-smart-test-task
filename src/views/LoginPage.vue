@@ -97,6 +97,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "@/assets/scss/mixins.scss";
 .login {
     display: flex;
     justify-content: center;
@@ -140,10 +141,7 @@ export default {
 }
 
 .form-label {
-    display: block;
-    margin-bottom: 8px;
-    font-size: 12px;
-    color: var(--secondary-color);
+    @include form-label;
 }
 
 .toggle-password {
@@ -165,17 +163,7 @@ export default {
 }
 
 .form-input {
-    border: none;
-    height: 50px;
-    background-color: var(--background-color);
-    width: 100%;
-    padding: 0 20px;
-    border-radius: 6px;
-    box-shadow: inset 0 2px 2px 0 rgba(0, 0, 0, 0.25);
-
-    &:invalid {
-        border: 1px solid var(--warn-color);
-    }
+    @include form-input;
 }
 
 .form-field-error,
@@ -186,30 +174,6 @@ export default {
 }
 
 .form-button {
-    user-select: none;
-    width: 100%;
-    padding: 10px 30px;
-    border: none;
-    border-radius: 6px;
-    background-color: var(--accent-color);
-    color: white;
-    cursor: pointer;
-    font-weight: 600;
-    height: 50px;
-    transition: color 0.1s, background-color 0.1s;
-
-    &:hover {
-        background-color: #2cc7b1;
-    }
-
-    &:active {
-        background-color: #29bda7;
-    }
-
-    &:disabled {
-        background-color: var(--background-color);
-        cursor: not-allowed;
-        color: #cececf;
-    }
+    @include button;
 }
 </style>

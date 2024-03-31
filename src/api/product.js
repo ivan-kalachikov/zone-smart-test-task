@@ -1,5 +1,5 @@
 import client from "./client"
-import { handleError } from "./utils/error"
+import { handleError } from "@/utils/errors"
 
 export async function get() {
     try {

@@ -1,14 +1,23 @@
-@mixin button {
-    user-select: none;
-    padding: 10px 30px;
-    border: none;
-    border-radius: 6px;
-    background-color: var(--accent-color);
-    color: white;
+@mixin common-button {
     cursor: pointer;
     font-weight: 600;
     height: 50px;
     transition: color 0.1s, background-color 0.1s;
+    user-select: none;
+    padding: 10px 30px;
+    border: none;
+    border-radius: 6px;
+
+    &:disabled {
+        cursor: not-allowed;
+    }
+}
+
+@mixin button {
+    @include common-button;
+
+    background-color: var(--accent-color);
+    color: white;
 
     &:hover {
         background-color: #2cc7b1;
@@ -20,7 +29,27 @@
 
     &:disabled {
         background-color: var(--background-color);
-        cursor: not-allowed;
+        color: #cececf;
+    }
+}
+
+@mixin secondary-button {
+    @include common-button;
+
+    border-color: var(--secondary-color);
+    background-color: #fff;
+    color: var(--primary-color);
+
+    &:hover {
+        background-color: var(--background-color);
+    }
+
+    &:active {
+        background-color: #e6e6e6;
+    }
+
+    &:disabled {
+        background-color: var(--background-color);
         color: #cececf;
     }
 }

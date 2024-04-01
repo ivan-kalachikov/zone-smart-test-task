@@ -1,5 +1,5 @@
 <template lang="pug">
-    .delete-icon(@click="$emit('delete', id)")
+    .data-table-delete(@click="$emit('delete', id)")
         Delete
 </template>
 
@@ -18,4 +18,8 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.data-table-delete {
+    cursor: pointer;
+}
+</style>

@@ -461,6 +461,7 @@ export default {
 
 .products {
     min-height: 100dvh;
+    padding: 40px 0;
     background-color: var(--background-color);
 }
 

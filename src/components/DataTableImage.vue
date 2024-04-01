@@ -1,5 +1,6 @@
 <template lang="pug">
-    img(:src="data[0]" alt="")
+    .data-table-image
+        img(:src="data[0]" alt="")
 </template>
 
 <script>
@@ -14,4 +15,12 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.data-table-image {
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+</style>

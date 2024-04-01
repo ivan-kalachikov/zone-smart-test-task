@@ -1,6 +1,5 @@
 <template lang="pug">
-    span
-        input(v-model="formattedNumber" @input="handleInput" @keyup.enter="handleEnter" :name="name" placeholder="₽")
+    input.data-table-money-input(v-model="formattedNumber" @input="handleInput" @keyup.enter="handleEnter" :name="name" placeholder="₽")
 </template>
 
 <script>
@@ -22,11 +21,12 @@ export default {
     },
     data() {
         return {
-            formattedNumber: this.formatNumber(this.data || 0),
+            formattedNumber: this.formatNumber(this.data),
         }
     },
     methods: {
         formatNumber(number) {
+            if (number === null) return ""
             return new Intl.NumberFormat("ru-RU", {
                 style: "currency",
                 currency: "RUB",
@@ -54,4 +54,12 @@ export default {
 }
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+@import "@/assets/scss/mixins.scss";
+
+.data-table-money-input {
+    @include form-input;
+
+    height: 30px;
+}
+</style>

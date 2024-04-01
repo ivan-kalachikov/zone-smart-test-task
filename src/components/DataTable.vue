@@ -4,36 +4,34 @@
             thead
                 tr
                     th(v-for="column in columns" :key="column.name")
-                        | {{ column.title }}
-                        if column.sortable
-                            div(
-                            :class="['sort', sort[column.name] || 'asc', { active: activeSortColumnName === column.name }]" 
-                            @click="sortClickHandle(column.name)"
-                            )
-                                Arrow
+                        .table-header-wrapper
+                            | {{ column.title }}
+                            if column.sortable
+                                div(
+                                :class="['sort', sort[column.name] || 'asc', { active: activeSortColumnName === column.name }]" 
+                                @click="sortClickHandle(column.name)"
+                                )
+                                    Arrow
                         if column.type === 'checkbox'
                             DataTableCheckbox(
                                 @select="({value}) => $emit('bulk-select', value)"
-                                :value="selectedIds.size === data.length"
+                                :is-checked="selectedIds.size === data.length"
                                 id="all"
                                 name="all"
                             )
             tbody
-                tr.selection-controls(v-if="selectedIds.size > 0")
-                    td(colspan=3) 
-                    | {{ `Выбрано ${selectedIds.size} из ${data.length}` }}
-                    button.bulk-delete-button(@click="$emit('bulk-delete')")
-                        Delete 
-                        | Удалить выделенные
-                    
-                    td(colspan=2)
-                    td Для всех выделенных
-                    td(colspan=2)
-                        DataTableMoneyInput(@submit="({value}) => handleBulkSubmit({value, name: 'min_price'})")
-                    td
-                        DataTableMoneyInput(@submit="({value}) => handleBulkSubmit({value, name: 'max_price'})")
-                    td
-
+                tr
+                    td.selection-controls-wrapper(:colspan="columns.length")
+                        .selection-controls(v-if="selectedIds.size > 0")
+                            .left
+                                | {{ `Выбрано ${selectedIds.size} из ${data.length}` }}
+                                button.bulk-delete-button(@click="$emit('bulk-delete')")
+                                    Delete 
+                                    | Удалить выделенные
+                            .right
+                                span Для всех выделенных
+                                DataTableMoneyInput(@submit="({name, value}) => handleBulkSubmit({value, name})" name="min_price" id="min_price")
+                                DataTableMoneyInput(@submit="({name, value}) => handleBulkSubmit({value, name})" name="max_price" id="max_price")
                 tr(v-for="item in data" :key="item.id")
                     td(v-for="column in columns" :key="column.name")
                         component(
@@ -43,7 +41,7 @@
                             :name="column.name"
                             :data="item[column.name]"
                             :extra-data="item[column.extraData]"
-                            :value="column.type === 'checkbox' ? selectedIds.has(item.id) : null"
+                            :is-checked="column.type === 'checkbox' && selectedIds.has(item.id)"
                         )= item[column.name]
         LoadingOverlay(v-if="isPending")    
 </template>
@@ -134,13 +132,44 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+@import "@/assets/scss/mixins.scss";
+
 .data-table {
     position: relative;
+    text-align: left;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+td,
+th {
+    font-size: 15px;
+    line-height: 25px;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    border-bottom: 1px solid #ccc;
+    padding: 0 10px;
+    max-width: 360px;
+}
+
+th {
+    color: var(--secondary-color);
+    font-weight: normal;
+    height: 60px;
+}
+
+.table-header-wrapper {
+    display: flex;
+    align-items: center;
 }
 
 .sort {
     display: inline-block;
     cursor: pointer;
+    flex-shrink: 0;
 
     &.desc {
         transform: rotate(180deg);
@@ -150,5 +179,54 @@ export default {
     &.active svg {
         stroke: var(--primary-color);
     }
+}
+
+.selection-controls {
+    height: 60px;
+    width: 100%;
+    background-color: #dee1e3;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 20px;
+}
+
+.left {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.right {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    padding-right: 87px;
+
+    input {
+        width: 134px;
+    }
+
+    .data-table-money-input:last-child {
+        margin-left: 20px;
+    }
+}
+
+.bulk-delete-button {
+    @include secondary-button;
+
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0 10px;
+    height: 30px;
+}
+
+.selection-controls-wrapper {
+    padding: 0;
+}
+
+.data-table-money-input {
+    width: 134px;
 }
 </style>

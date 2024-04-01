@@ -10,7 +10,6 @@ const client = axios.create({
 client.interceptors.response.use(
     (response) => response,
     async (error) => {
-        console.log("error in interceptor", error)
         if (error.response?.status === 401) {
             await store.dispatch("refresh")
             return axios.request(error.config)

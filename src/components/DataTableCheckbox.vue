@@ -1,7 +1,7 @@
 <template lang="pug">
     .checkbox
-        input(type="checkbox" :id="name" :name="name" v-model="checked" @change="handleChange")
-        label(:for="name")
+        input(type="checkbox" :id="id" :name="name" v-model="checked" @change="handleChange")
+        label(:for="id")
             slot
 </template>
 

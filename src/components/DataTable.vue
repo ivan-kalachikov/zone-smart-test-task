@@ -15,14 +15,17 @@
                         if column.type === 'checkbox'
                             DataTableCheckbox(
                                 @select="({value}) => $emit('bulk-select', value)"
-                                :is-checked="selectedIds.size === data.length"
+                                :is-checked="isAllSelected"
                                 id="all"
                                 name="all"
                             )
-            tbody
+            tr(v-if="isPending && !hasRows")
+                td(:colspan="columns.length")
+                    DataTableSkeleton
+            tbody(v-else)
                 tr
-                    td.selection-controls-wrapper(:colspan="columns.length")
-                        .selection-controls(v-if="selectedIds.size > 0")
+                    td.selection-controls-wrapper(v-if="selectedIds.size > 0" :colspan="columns.length")
+                        .selection-controls
                             .left
                                 | {{ `Выбрано ${selectedIds.size} из ${data.length}` }}
                                 button.bulk-delete-button(@click="$emit('bulk-delete')")
@@ -43,7 +46,7 @@
                             :extra-data="item[column.extraData]"
                             :is-checked="column.type === 'checkbox' && selectedIds.has(item.id)"
                         )= item[column.name]
-        LoadingOverlay(v-if="isPending")    
+        LoadingOverlay(v-if="isPending && hasRows")
 </template>
 
 <script>
@@ -55,6 +58,7 @@ import DataTableLink from "@/components/DataTableLink.vue"
 import DataTableMoney from "@/components/DataTableMoney.vue"
 import DataTableMoneyInput from "@/components/DataTableMoneyInput.vue"
 import DataTableNumber from "@/components/DataTableNumber.vue"
+import DataTableSkeleton from "@/components/DataTableSkeleton.vue"
 import Delete from "@/assets/icons/delete-bold-small.svg"
 import LoadingOverlay from "@/components/LoadingOverlay.vue"
 
@@ -80,6 +84,7 @@ export default {
         DataTableMoney,
         DataTableMoneyInput,
         DataTableNumber,
+        DataTableSkeleton,
         Delete,
         LoadingOverlay,
     },
@@ -109,6 +114,14 @@ export default {
             activeSortColumnName: "",
         }
     },
+    computed: {
+        isAllSelected() {
+            return this.selectedIds.size === this.data.length
+        },
+        hasRows() {
+            return this.data.length > 0
+        },
+    },
     methods: {
         getCellComponent(type) {
             return typeToComponent[type] || "span"
@@ -137,10 +150,12 @@ export default {
 .data-table {
     position: relative;
     text-align: left;
+    overflow-x: auto;
 }
 
 table {
     border-collapse: collapse;
+    width: 100%;
 }
 
 td,
@@ -153,12 +168,12 @@ th {
     border-bottom: 1px solid #ccc;
     padding: 0 10px;
     max-width: 360px;
+    height: 60px;
 }
 
 th {
     color: var(--secondary-color);
     font-weight: normal;
-    height: 60px;
 }
 
 .table-header-wrapper {

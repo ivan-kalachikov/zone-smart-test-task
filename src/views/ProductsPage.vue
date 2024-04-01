@@ -29,10 +29,9 @@
                                 span 59801844
                     
             DataTable(
-                :v-if="isInitialized"
                 :columns="columns"
                 :data="results"
-                :is-pending="isInitialized && isPending"
+                :is-pending="isPending"
                 :selected-ids="selectedIds"
                 @submit="handleSubmit"
                 @delete="handleDelete"
@@ -43,7 +42,6 @@
                 @bulk-delete="handleBulkDelete"
                 @bulk-select="handleBulkSelect"
             )
-            .skeleton(v-if="!isInitialized && isPending") Skeleton loading here
 </template>
 
 <script>
@@ -61,7 +59,6 @@ export default {
             results: [],
             count: 0,
             isPending: false,
-            isInitialized: false,
             productsToAdd: "",
             sort: {},
             offset: 0,
@@ -80,7 +77,6 @@ export default {
     },
     async created() {
         await this.fetch()
-        this.isInitialized = true
     },
     watch: {
         fetchParams() {

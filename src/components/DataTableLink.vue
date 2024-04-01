@@ -1,7 +1,7 @@
 <template lang="pug">
   a.data-table-link(:href="extraData" target="_blank")
     Link
-    = data
+    span= data
 </template>
 
 <script>
@@ -27,7 +27,6 @@ export default {
 .data-table-link {
     display: flex;
     align-items: center;
-    justify-content: center;
     gap: 4px;
     text-decoration: none;
     color: var(--primary-color);
@@ -36,9 +35,15 @@ export default {
         stroke: var(--primary-color);
     }
 
+    span {
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
     svg {
         width: 25px;
         height: 25px;
+        flex-shrink: 0;
     }
 }
 </style>

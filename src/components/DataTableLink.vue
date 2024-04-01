@@ -1,10 +1,15 @@
 <template lang="pug">
-  a(:href="extraData")= data
+  a(:href="extraData" target="_blank")
+    Link
+    = data
 </template>
 
 <script>
+import Link from "@/assets/icons/link.svg"
+
 export default {
     name: "DataTableLink",
+    components: { Link },
     props: {
         data: {
             type: String,

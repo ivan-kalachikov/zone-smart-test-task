@@ -11,11 +11,28 @@
                             @click="sortClickHandle(column.name)"
                             )
                                 Arrow
+                        if column.type === 'checkbox'
+                            DataTableCheckbox(
+                                @select="({value}) => $emit('bulk-select', value)"
+                                :value="selectedIds.size === data.length"
+                                id="all"
+                                name="all"
+                            )
             tbody
                 tr.selection-controls(v-if="selectedIds.size > 0")
-                    td(colspan=3)= `Выбрано ${selectedIds.size} из ${data.length}`
+                    td(colspan=3) 
+                    | {{ `Выбрано ${selectedIds.size} из ${data.length}` }}
+                    button.bulk-delete-button(@click="$emit('bulk-delete')")
+                        Delete 
+                        | Удалить выделенные
+                    
                     td(colspan=2)
                     td Для всех выделенных
+                    td(colspan=2)
+                        DataTableMoneyInput(@submit="({value}) => handleBulkSubmit({value, name: 'min_price'})")
+                    td
+                        DataTableMoneyInput(@submit="({value}) => handleBulkSubmit({value, name: 'max_price'})")
+                    td
 
                 tr(v-for="item in data" :key="item.id")
                     td(v-for="column in columns" :key="column.name")
@@ -26,6 +43,7 @@
                             :name="column.name"
                             :data="item[column.name]"
                             :extra-data="item[column.extraData]"
+                            :value="column.type === 'checkbox' ? selectedIds.has(item.id) : null"
                         )= item[column.name]
         LoadingOverlay(v-if="isPending")    
 </template>
@@ -39,6 +57,7 @@ import DataTableLink from "@/components/DataTableLink.vue"
 import DataTableMoney from "@/components/DataTableMoney.vue"
 import DataTableMoneyInput from "@/components/DataTableMoneyInput.vue"
 import DataTableNumber from "@/components/DataTableNumber.vue"
+import Delete from "@/assets/icons/delete-bold-small.svg"
 import LoadingOverlay from "@/components/LoadingOverlay.vue"
 
 const typeToComponent = {
@@ -63,6 +82,7 @@ export default {
         DataTableMoney,
         DataTableMoneyInput,
         DataTableNumber,
+        Delete,
         LoadingOverlay,
     },
     props: {
@@ -105,6 +125,9 @@ export default {
                 name: columnName,
                 direction: this.sort[columnName],
             })
+        },
+        handleBulkSubmit({ value, name }) {
+            this.$emit("bulk-submit", { value, name })
         },
     },
 }

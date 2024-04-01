@@ -17,7 +17,7 @@ export default {
         },
         name: {
             type: String,
-            default: null,
+            required: true,
         },
     },
     data() {

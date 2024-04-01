@@ -7,17 +7,32 @@
 
 <script>
 export default {
-    name: "DataTableImage",
+    name: "DataTableCheckbox",
     props: {
         id: {
             type: String,
             required: true,
+        },
+        name: {
+            type: String,
+            required: true,
+        },
+        value: {
+            type: Boolean,
+            default: null,
         },
     },
     data() {
         return {
             checked: false,
         }
+    },
+    watch: {
+        value(value) {
+            console.log(this.id, value)
+            this.checked = value
+            console.log(this.id, this.checked)
+        },
     },
     methods: {
         handleChange() {

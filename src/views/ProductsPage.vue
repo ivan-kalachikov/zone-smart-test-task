@@ -39,6 +39,9 @@
                 @sort="handleSort"
                 @pagination="handlePagination"
                 @select="handleSelect"
+                @bulk-submit="handleBulkSubmit"
+                @bulk-delete="handleBulkDelete"
+                @bulk-select="handleBulkSelect"
             )
             .skeleton(v-if="!isInitialized && isPending") Skeleton loading here
 </template>
@@ -411,6 +414,43 @@ export default {
             } else {
                 this.selectedIds.delete(id)
             }
+        },
+        handleBulkSelect(value) {
+            if (value) {
+                this.selectedIds = new Set(this.results.map(({ id }) => id))
+            } else {
+                this.selectedIds.clear()
+            }
+        },
+        async handleBulkSubmit({ value, name }) {
+            this.isPending = true
+            await new Promise((resolve) =>
+                setTimeout(() => {
+                    console.log(
+                        `BULK UPDATE
+                         ids: ${[...this.selectedIds].join(", ")}
+                         property ${name}
+                         value: ${value}`
+                    )
+                    resolve()
+                }, 500)
+            )
+            await this.fetch()
+            this.isPending = false
+        },
+        async handleBulkDelete() {
+            this.isPending = true
+            await new Promise((resolve) =>
+                setTimeout(() => {
+                    console.log(
+                        `BULK DELETE\n ids: ${[...this.selectedIds].join(", ")}`
+                    )
+                    resolve()
+                }, 500)
+            )
+            this.selectedIds.clear()
+            await this.fetch()
+            this.isPending = false
         },
     },
 }

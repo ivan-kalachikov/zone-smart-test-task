@@ -2,6 +2,8 @@
 
 ## Project description
 
+For your convenience the project is deployed to Vercel [https://zone-smart-test-task.vercel.app/](https://zone-smart-test-task.vercel.app/)
+
 This repository contains an implementation of test assignment for _ZoneSmart_ company.
 You can get acquaintance with the task specs [here](https://docs.google.com/document/d/1AjbNrSZ3-IFuRuH6KAJU9KQc306jbuvR5XXzib21xJI/edit?usp=sharing)
 

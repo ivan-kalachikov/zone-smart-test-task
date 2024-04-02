@@ -22,6 +22,13 @@ client.interceptors.response.use(
             router.currentRoute?.value?.name !== routesNames.login
         ) {
             await store.dispatch("refresh")
+            error.config = {
+                ...error.config,
+                headers: {
+                    ...error.config.headers,
+                    Authorization: `JWT ${store.state.auth.token}`,
+                },
+            }
             return axios.request(error.config)
         }
         return Promise.reject(error)

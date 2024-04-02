@@ -29,9 +29,8 @@ export default {
                 await dispatch("logout")
                 return
             }
-            const { access, refresh } = await refreshApi(refreshToken)
+            const { access } = await refreshApi(refreshToken)
             commit("SET_TOKEN", access)
-            commit("SET_REFRESH_TOKEN", refresh)
         },
         logout({ commit }) {
             commit("SET_TOKEN", "")

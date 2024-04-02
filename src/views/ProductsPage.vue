@@ -27,7 +27,6 @@
                                 span 119203059,
                                 span 124366343,
                                 span 59801844
-                    
             DataTable(
                 :columns="columns"
                 :data="results"
@@ -95,16 +94,18 @@ export default {
     methods: {
         async fetch() {
             this.callAsyncFunc(async () => {
-                const { results, total } = await getProducts(this.fetchParams)
+                const { results, count } = await getProducts(this.fetchParams)
                 this.results = results
-                this.total = total
-            })
+                this.total = count
+            }, true)
         },
-        async callAsyncFunc(fn) {
+        async callAsyncFunc(fn, notRefetchAfter = false) {
             this.isPending = true
             try {
                 await fn()
-                await this.fetch()
+                if (!notRefetchAfter) {
+                    await this.fetch()
+                }
             } catch (error) {
                 handleError(error)
             }
@@ -170,6 +171,7 @@ export default {
             })
         },
         handlePageChange(page) {
+            this.selectedIds.clear()
             this.offset = (page - 1) * this.limit
         },
     },

@@ -1,16 +1,12 @@
 import client from "./client"
 import { handleError } from "@/utils/errors"
-import getProxifiedUrl from "@/utils/urls"
 
 export async function auth({ email, password }) {
     try {
-        const response = await client.post(
-            getProxifiedUrl("/user/jwt/create/"),
-            {
-                email,
-                password,
-            }
-        )
+        const response = await client.post("/user/jwt/create/", {
+            email,
+            password,
+        })
         return response?.data || {}
     } catch (error) {
         handleError(error, true)
@@ -19,12 +15,9 @@ export async function auth({ email, password }) {
 
 export async function refresh(refreshToken) {
     try {
-        const response = await client.post(
-            getProxifiedUrl("/user/jwt/refresh/"),
-            {
-                refresh: refreshToken,
-            }
-        )
+        const response = await client.post("/user/jwt/refresh/", {
+            refresh: refreshToken,
+        })
         return response?.data || {}
     } catch (error) {
         handleError(error)

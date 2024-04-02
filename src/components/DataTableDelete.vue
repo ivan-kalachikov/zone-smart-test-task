@@ -1,5 +1,5 @@
 <template lang="pug">
-    .data-table-delete(@click="$emit('delete', id)")
+    .data-table-delete(@click="$emit('delete', id)" tabindex="0" role="button")
         Delete
 </template>
 

@@ -46,7 +46,8 @@
                             :extra-data="item[column.extraData]"
                             :is-checked="column.type === 'checkbox' && selectedIds.has(item.id)"
                         )= item[column.name]
-        LoadingOverlay(v-if="isPending && hasRows")
+        Transition(name="fade")
+            LoadingOverlay(v-if="isPending && hasRows")
 </template>
 
 <script>
@@ -243,5 +244,20 @@ th {
 
 .data-table-money-input {
     width: 134px;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+    transition: opacity 0.3s ease;
+}
+
+.fade-enter-from,
+.fade-leave-to {
+    opacity: 0;
+}
+
+.fade-enter-to,
+.fade-leave-from {
+    opacity: 1;
 }
 </style>

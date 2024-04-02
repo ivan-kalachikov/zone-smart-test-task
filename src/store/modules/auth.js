@@ -1,4 +1,6 @@
 import { auth, refresh as refreshApi } from "@/api/auth"
+import router from "@/router"
+import { routesNames } from "@/router"
 
 export default {
     state: () => ({
@@ -36,6 +38,7 @@ export default {
             commit("SET_REFRESH_TOKEN", "")
             localStorage.removeItem("token")
             localStorage.removeItem("refreshToken")
+            router.push({ name: routesNames.login })
         },
     },
     getters: {

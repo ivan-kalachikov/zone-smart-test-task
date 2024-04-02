@@ -15,14 +15,14 @@ In a nutshell the task is to create two components:
 The main stack is `Vue3`, `Vuex` for state managing, `Vue Router` for routes, `Pug` for templates, `SCSS` for styling, `axios` for requests.
 By requirements no UI libraries must be used.
 
-Table actions for delete and patch items (single and bulk) are not implemented, but have a mock async methods which received all needed data and emulate async request and print data to the console. The same approach is applied for sorting, since there is no parameters for sorting provided in the task description.
+Table actions for delete and patch items (single and bulk) are not implemented, but have mock async methods which receive all needed data and emulate async request and print data to the console. The same approach is applied for sorting, since there are no parameters for sorting provided in the task description.
 
-Axios interceptions used for catching 401 error (exception for the login page) and call refresh action from the auth store.
-Refresh action in turn check if there is refresh token and send a request to refresh. After success refreshing it tries the previous request again. Otherwise it deletes all tokens from localStorage and redirect to the login page.
+Axios interceptions used for catching 401 error (exception for the login page) and calling refresh action from the auth store.
+The refresh action in turn checks if there is refresh-token and sends an api request to refresh. After success refreshing it tries the previous request again. Otherwise it deletes all tokens from localStorage and redirects to the login page.
 
-The table component is implemented to be universal and used for different kind of data, the structure is described by prop `columns` which is an object describing columns structure.
+The table component is implemented in the way to be universal and used for different kind of data, the structure is described by prop `columns` which is an object describing columns structure.
 
-To solve ongoing CORS issue (arises on `/products` request), proxy added. It can be turned off or changed to another by environmental variables (see `.env.example`)
+To solve ongoing CORS issue (arises on `/products` request), proxy added. It can be turned off or changed to another url by environmental variables (see `.env.example`)
 
 ## Project setup
 

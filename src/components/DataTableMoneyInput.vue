@@ -59,8 +59,8 @@ export default {
 
 .data-table-money-input {
     @include form-input;
-    padding: 0 10px;
 
+    padding: 0 10px;
     height: 30px;
 }
 </style>

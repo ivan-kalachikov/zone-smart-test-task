@@ -220,6 +220,11 @@ export default {
     align-items: flex-end;
     gap: 10px;
     margin-bottom: 30px;
+    flex-wrap: wrap;
+
+    @media (min-width: 768px) {
+        flex-wrap: nowrap;
+    }
 }
 
 .products-title {
@@ -227,6 +232,11 @@ export default {
     font-size: 28px;
     margin-top: 0;
     margin-bottom: 0;
+    width: 100%;
+
+    @media (min-width: 768px) {
+        width: auto;
+    }
 }
 
 .products-count {

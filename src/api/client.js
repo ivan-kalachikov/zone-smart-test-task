@@ -4,6 +4,8 @@ import store from "@/store"
 const proxyEnabled = process.env.VUE_APP_PROXY_ENABLED || false
 const apiBaseUrl = process.env.VUE_APP_API_BASE_URL
 const proxyUrl = process.env.VUE_APP_PROXY_URL
+import router from "@/router"
+import { routesNames } from "@/router"
 
 const client = axios.create({
     baseURL: proxyEnabled ? proxyUrl : apiBaseUrl,
@@ -15,7 +17,10 @@ const client = axios.create({
 client.interceptors.response.use(
     (response) => response,
     async (error) => {
-        if (error.response?.status === 401) {
+        if (
+            error.response?.status === 401 &&
+            router.currentRoute?.value?.name !== routesNames.login
+        ) {
             await store.dispatch("refresh")
             return axios.request(error.config)
         }

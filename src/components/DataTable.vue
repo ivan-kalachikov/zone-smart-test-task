@@ -46,8 +46,8 @@
                             :extra-data="item[column.extraData]"
                             :is-checked="column.type === 'checkbox' && selectedIds.has(item.id)"
                         )= item[column.name]
-        Transition(name="fade")
-            LoadingOverlay(v-if="isPending && hasRows")
+            Transition(name="fade")
+                LoadingOverlay(v-if="isPending && hasRows")
 </template>
 
 <script>
@@ -149,7 +149,6 @@ export default {
 @import "@/assets/scss/mixins.scss";
 
 .data-table {
-    position: relative;
     text-align: left;
     overflow-x: auto;
 }
@@ -157,6 +156,7 @@ export default {
 table {
     border-collapse: collapse;
     width: 100%;
+    position: relative;
 }
 
 td,

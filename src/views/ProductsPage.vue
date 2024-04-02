@@ -108,39 +108,29 @@ export default {
             }
             this.isPending = false
         },
-        async delay(cb) {
-            await new Promise((resolve) => setTimeout(resolve, 1000))
-            await cb()
-        },
         async handleSubmit({ name, value, id }) {
             this.callAsyncFunc(async () => {
-                // replace delay with real api call
-                await this.delay(() => {
-                    console.log(
-                        `PATCH\n id: ${id}\n property: ${name}\n value: ${value}`
-                    )
-                })
+                // replace with real api call
+                console.log(
+                    `PATCH\n id: ${id}\n property: ${name}\n value: ${value}`
+                )
                 await this.fetch()
             })
         },
         async handleDelete(id) {
             this.callAsyncFunc(async () => {
-                // replace delay with real api call
-                await this.delay(() => {
-                    console.log(`DELETE\n id: ${id}`)
-                })
+                // replace with real api call
+                console.log(`DELETE\n id: ${id}`)
                 await this.fetch()
             })
         },
         async handleSort(parameters) {
             this.callAsyncFunc(async () => {
                 this.sort = parameters
-                // replace delay with real api call
-                await this.delay(() => {
-                    console.log(
-                        `SORT\n name: ${parameters.name}\n direction: ${parameters.direction}`
-                    )
-                })
+                // replace with real api call
+                console.log(
+                    `SORT\n name: ${parameters.name}\n direction: ${parameters.direction}`
+                )
                 await this.fetch()
             })
         },
@@ -160,25 +150,21 @@ export default {
         },
         async handleBulkSubmit({ value, name }) {
             this.callAsyncFunc(async () => {
-                // replace delay with real api call
-                await this.delay(() => {
-                    console.log(
-                        `BULK UPDATE ids: ${[...this.selectedIds].join(
-                            ", "
-                        )} property ${name}value: ${value}`
-                    )
-                })
+                // replace with real api call
+                console.log(
+                    `BULK UPDATE ids: ${[...this.selectedIds].join(
+                        ", "
+                    )} property ${name}value: ${value}`
+                )
                 await this.fetch()
             })
         },
         async handleBulkDelete() {
             this.callAsyncFunc(async () => {
-                // replace delay with real api call
-                await this.delay(() => {
-                    console.log(
-                        `BULK DELETE\n ids: ${[...this.selectedIds].join(", ")}`
-                    )
-                })
+                // replace with real api call
+                console.log(
+                    `BULK DELETE\n ids: ${[...this.selectedIds].join(", ")}`
+                )
                 this.selectedIds.clear()
                 await this.fetch()
             })

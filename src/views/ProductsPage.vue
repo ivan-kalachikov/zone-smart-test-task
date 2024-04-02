@@ -97,15 +97,12 @@ export default {
                 const { results, count } = await getProducts(this.fetchParams)
                 this.results = results
                 this.total = count
-            }, true)
+            })
         },
-        async callAsyncFunc(fn, notRefetchAfter = false) {
+        async callAsyncFunc(fn) {
             this.isPending = true
             try {
                 await fn()
-                if (!notRefetchAfter) {
-                    await this.fetch()
-                }
             } catch (error) {
                 handleError(error)
             }
@@ -117,23 +114,35 @@ export default {
         },
         async handleSubmit({ name, value, id }) {
             this.callAsyncFunc(async () => {
-                await this.delay(
+                // replace delay with real api call
+                await this.delay(() => {
                     console.log(
                         `PATCH\n id: ${id}\n property: ${name}\n value: ${value}`
                     )
-                )
+                })
+                await this.fetch()
             })
         },
         async handleDelete(id) {
             this.callAsyncFunc(async () => {
-                await this.delay(console.log(console.log(`DELETE\n id: ${id}`)))
+                // replace delay with real api call
+                await this.delay(() => {
+                    console.log(`DELETE\n id: ${id}`)
+                })
+                await this.fetch()
             })
         },
-        handleSort(parameters) {
-            console.log(
-                `SORT\n name: ${parameters.name}\n direction: ${parameters.direction}`
-            )
-            this.sort = parameters
+        async handleSort(parameters) {
+            this.callAsyncFunc(async () => {
+                this.sort = parameters
+                // replace delay with real api call
+                await this.delay(() => {
+                    console.log(
+                        `SORT\n name: ${parameters.name}\n direction: ${parameters.direction}`
+                    )
+                })
+                await this.fetch()
+            })
         },
         handleSelect({ id, value }) {
             if (value) {
@@ -151,23 +160,27 @@ export default {
         },
         async handleBulkSubmit({ value, name }) {
             this.callAsyncFunc(async () => {
-                await this.delay(
+                // replace delay with real api call
+                await this.delay(() => {
                     console.log(
                         `BULK UPDATE ids: ${[...this.selectedIds].join(
                             ", "
                         )} property ${name}value: ${value}`
                     )
-                )
+                })
+                await this.fetch()
             })
         },
         async handleBulkDelete() {
             this.callAsyncFunc(async () => {
-                await this.delay(
+                // replace delay with real api call
+                await this.delay(() => {
                     console.log(
                         `BULK DELETE\n ids: ${[...this.selectedIds].join(", ")}`
                     )
-                )
+                })
                 this.selectedIds.clear()
+                await this.fetch()
             })
         },
         handlePageChange(page) {

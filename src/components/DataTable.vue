@@ -170,6 +170,14 @@ th {
     padding: 0 10px;
     max-width: 360px;
     height: 60px;
+
+    &:first-child {
+        padding-left: 0;
+    }
+
+    &:last-child {
+        padding-right: 0;
+    }
 }
 
 th {
@@ -215,16 +223,16 @@ th {
 
 .right {
     display: flex;
-    gap: 10px;
+    gap: 20px;
     align-items: center;
-    padding-right: 87px;
+    padding-right: 95px;
 
     input {
         width: 134px;
     }
 
     .data-table-money-input:last-child {
-        margin-left: 20px;
+        margin-left: 30px;
     }
 }
 

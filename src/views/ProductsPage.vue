@@ -201,7 +201,7 @@ export default {
 }
 
 .container {
-    width: 1520px;
+    width: 1600px;
     max-width: calc(100% - 30px);
     margin-left: auto;
     margin-right: auto;
@@ -248,6 +248,8 @@ export default {
 p {
     font-size: 15px;
     line-height: 25px;
+    margin-top: 20px;
+    margin-bottom: 20px;
 }
 
 .form-label {
@@ -283,6 +285,7 @@ p {
 
     span {
         text-decoration: underline dashed;
+        margin: 0 2px;
     }
 }
 

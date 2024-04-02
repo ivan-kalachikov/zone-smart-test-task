@@ -42,14 +42,16 @@ export default {
 
 <style lang="scss" scoped>
 .checkbox {
+    padding-left: 3px;
+
     input {
         display: none;
     }
 
     label {
         display: block;
-        width: 25px;
-        height: 25px;
+        width: 19px;
+        height: 19px;
         border: 1px solid var(--secondary-color);
         border-radius: 6px;
         cursor: pointer;

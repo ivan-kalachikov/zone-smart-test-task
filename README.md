@@ -20,6 +20,8 @@ Refresh action in turn check if there is refresh token and send a request to ref
 
 The table component is implemented to be universal and used for different kind of data, the structure is described by prop `columns` which is an object describing columns structure.
 
+To solve ongoing CORS issue (arises on `/products` request), proxy added. It can be turned off or changed to another by environmental variables (see `.env.example`)
+
 ## Project setup
 
 ```

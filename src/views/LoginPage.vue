@@ -17,7 +17,7 @@
                     if emailErrors
                         .form-field-error= emailErrors
                 .form-field
-                    label.form-label(for="password") Email
+                    label.form-label(for="password") Пароль
                     .form-input-wrapper
                         input.form-input(
                             :type="passwordType"
@@ -109,8 +109,8 @@ export default {
 
 .login-form-wrapper {
     max-width: calc(100vw - 30px);
-    width: 500px;
-    padding: 40px;
+    width: 430px;
+    padding: 40px 40px 60px;
     border-radius: 15px;
     background-color: #fff;
     box-shadow: 0 8px 8px 0 rgba(0, 0, 0, 0.16);
@@ -172,6 +172,10 @@ export default {
     margin-top: 8px;
     color: var(--warn-color);
     font-size: 12px;
+
+    &:empty {
+        display: none;
+    }
 }
 
 .form-button {
